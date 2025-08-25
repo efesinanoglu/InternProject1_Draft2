@@ -17,6 +17,8 @@ services:
       timeout: 5s
       retries: 10
 
+
+
   app:
     build:
       context: .
@@ -30,8 +32,13 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_ADDITIONAL_LOCATION: /config/
     ports:
       - "8080:8080"
+    env_file:
+      - ./app.env
+
 
 volumes:
-  dbdata:
+  - ./config:/config:
