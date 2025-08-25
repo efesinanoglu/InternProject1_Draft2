@@ -18,6 +18,7 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
     @Column(name = "image", length = 2048)
     private String image; // Image URL or path
 
