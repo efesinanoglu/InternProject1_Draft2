@@ -10,7 +10,7 @@ public class ContentScheduler {
 //    @Autowired
 //    ContentRepository contentRepository;
 //
-//    @Scheduled(fixedRate = 5000)
+//    @Scheduled(cron = "0 0 3 * * *", zone = "Europe/Istanbul")
 //    public void pendingContent(){
 //        System.out.println("Processing transfer");
 //
