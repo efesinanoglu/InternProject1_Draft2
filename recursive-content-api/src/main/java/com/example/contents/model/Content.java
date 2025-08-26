@@ -6,21 +6,21 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(exclude = {"parent", "children"})
+
+
 @Entity
 @Table(name = "contents")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Lob
-    @Column(name = "image", length = 2048)
-    private String image; // Image URL or path
+    @Column(name = "file", length = 2048)
+    private String file; // Image URL or path
 
     @Column(name = "text_block", columnDefinition = "text")
     private String textBlock;
@@ -29,7 +29,4 @@ public class Content {
     @JoinColumn(name = "parent_id")
     private Content parent;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Content> children = new ArrayList<>();
 }

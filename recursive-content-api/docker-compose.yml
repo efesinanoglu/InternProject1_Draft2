@@ -1,4 +1,5 @@
 version: "3.9"
+
 services:
   db:
     image: postgres:16
@@ -16,13 +17,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-
-
+    restart: unless-stopped
 
   app:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile   # make sure the file is literally named Dockerfile
     container_name: rcapi-app
     depends_on:
       db:
@@ -34,11 +34,14 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_ADDITIONAL_LOCATION: /config/
+      SPRING_JPA_OPEN_IN_VIEW : "false"
     ports:
-      - "8080:8080"
+        - "8080:8080"
     env_file:
       - ./app.env
-
+    volumes:
+      - ./config:/config:ro
+    restart: unless-stopped
 
 volumes:
-  - ./config:/config:
+  dbdata: {}

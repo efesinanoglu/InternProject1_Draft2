@@ -4,23 +4,19 @@ import com.example.contents.dto.ContentDto;
 import com.example.contents.dto.ContentTreeDto;
 import com.example.contents.service.ContentService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/contents")
-@RequiredArgsConstructor
-@Validated
-@Tag(name = "Contents")
 public class ContentController {
 
-    private final ContentService service;
+    @Autowired
+    private  ContentService service;
 
     @Operation(summary = "Get a single content by id")
     @GetMapping("/{id}")
@@ -39,10 +35,9 @@ public class ContentController {
     public ResponseEntity<ContentDto> createOrUpdate(@RequestBody @Valid UpsertRequest req) {
         ContentDto dto = ContentDto.builder()
                 .id(req.id)
-                .image(req.image)
+                .File(req.File)
                 .textBlock(req.textBlock)
-                .parentId(req.parentId)
-                .build();
+                               .build();
         return ResponseEntity.ok(service.createOrUpdate(dto));
     }
 
@@ -50,9 +45,8 @@ public class ContentController {
     public static class UpsertRequest {
         public Long id; // optional for update
         @NotBlank
-        public String image;
+        public String File;
         @NotBlank
         public String textBlock;
-        public Long parentId; // optional
     }
 }

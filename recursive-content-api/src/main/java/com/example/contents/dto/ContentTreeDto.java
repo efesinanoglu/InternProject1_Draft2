@@ -14,7 +14,7 @@ public class ContentTreeDto {
     private Long id;
 
     @Schema(example = "https://example.com/img.jpg")
-    private String image;
+    private String File;
 
     @Schema(example = "Some text block")
     private String textBlock;
