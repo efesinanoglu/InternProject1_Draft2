@@ -49,10 +49,7 @@ public class ContentService {
         if (dto.getParentId() != null) {
             Content parent = repo.findById(dto.getParentId())
                     .orElseThrow(() -> new NotFoundException("Parent %d not found".formatted(dto.getParentId())));
-            entity.setParent(parent);
 
-        } else {
-            entity.setParent(null);
         }
 
         Content saved = repo.save(entity);
@@ -61,12 +58,10 @@ public class ContentService {
 
     // --- Mapping helpers ---
     private ContentDto toDto(Content c) {
-        Long parentId = (c.getParent() != null) ? c.getParent().getId() : null;
         return ContentDto.builder()
                 .id(c.getId())
                 .File(c.getFile())
                 .textBlock(c.getTextBlock())
-                .parentId(parentId)
                 .build();
     }
 

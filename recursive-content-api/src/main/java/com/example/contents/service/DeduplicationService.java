@@ -39,7 +39,7 @@ public class DeduplicationService {
             List<Content> toDelete = all.subList(1, all.size());
             int n = toDelete.size();
 
-            // Batch delete
+
             contentRepository.deleteAllInBatch(toDelete);
             deleted.addAndGet(n);
 
