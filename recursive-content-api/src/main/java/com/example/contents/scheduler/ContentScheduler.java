@@ -56,8 +56,8 @@ public class ContentScheduler {
                             AND lower(btrim(coalesce(text_block::text, ''))) = :text
                                 ORDER BY id ASC
                                             """, Content.class)
-                    .setParameter("file", g.getFile())         // already normalized by the repo query
-                    .setParameter("text", g.getTextBlock())    // already normalized
+                    .setParameter("file", g.getFile())
+                    .setParameter("text", g.getTextBlock())
                     .getResultList();
 
             if (dupes.size() <= 1) continue;
@@ -68,7 +68,7 @@ public class ContentScheduler {
             LocalDateTime now = LocalDateTime.now();
             for (int i = 1; i < dupes.size(); i++) {
                 Content d = dupes.get(i);
-                d.setProcessed(true);        // soft de-dup
+                d.setProcessed(true);
                 d.setProcessedAt(now);
             }
             contentRepository.saveAll(dupes.subList(1, dupes.size()));

@@ -8,10 +8,9 @@ import java.util.List;
 
 public interface ContentRepository extends JpaRepository<Content, Long> {
 
-    // exact match helper
     List<Content> findByFileAndTextBlock(String file, String TextBlock);
 
-    // projection for the native duplicate query
+
     @Query(value = """
     SELECT
       lower(btrim(coalesce(file::text, '')))      AS file,
@@ -32,6 +31,5 @@ public interface ContentRepository extends JpaRepository<Content, Long> {
     }
 
 
-    // batch for normal processing
     List<Content> findTop100ByProcessedFalseOrderByIdAsc();
 }

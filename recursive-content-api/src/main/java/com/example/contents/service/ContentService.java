@@ -56,7 +56,6 @@ public class ContentService {
         return toDto(saved);
     }
 
-    // --- Mapping helpers ---
     private ContentDto toDto(Content c) {
         return ContentDto.builder()
                 .id(c.getId())
