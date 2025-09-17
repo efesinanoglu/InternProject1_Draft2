@@ -24,7 +24,7 @@ public class Content {
 
     @Lob
     @Column(name = "file", length = 2048)
-    private String file; // Image URL or path
+    private String file;
 
     @Column(name = "text_block", columnDefinition = "text")
     private String textBlock;

@@ -26,9 +26,9 @@ public interface ContentRepository extends JpaRepository<Content, Long> {
     List<DupGroup> findDuplicateGroups();
 
     public interface DupGroup {
-        String getFile();       // alias: file
-        String getTextBlock();  // alias: textblock
-        long getCnt();          // alias: cnt
+        String getFile();
+        String getTextBlock();
+        long getCnt();
     }
 
 

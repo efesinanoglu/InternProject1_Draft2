@@ -32,7 +32,6 @@ public class DeduplicationService {
             List<Content> all = contentRepository.findByFileAndTextBlock(group.getFile(), group.getTextBlock());
             if (all.size() <= 1) return;
 
-            // Keep policy: keep the smallest id (first inserted)
             all.sort(Comparator.comparing(Content::getId));
             Content keeper = all.get(0);
 
