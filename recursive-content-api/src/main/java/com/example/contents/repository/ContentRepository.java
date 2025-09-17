@@ -10,6 +10,7 @@ public interface ContentRepository extends JpaRepository<Content, Long> {
 
     List<Content> findByFileAndTextBlock(String file, String TextBlock);
 
+    boolean existsByFileIgnoreCaseAndTextBlockIgnoreCase(String file, String textBlock);
 
     @Query(value = """
     SELECT

@@ -18,7 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Content {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "content_seq")
+    @SequenceGenerator(name = "content_seq", sequenceName = "content_seq", allocationSize = 50)
     private Long id;
 
     @Lob

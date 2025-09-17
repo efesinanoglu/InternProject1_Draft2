@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://172.27.208.1:5432/contentsdb
+    url: jdbc:postgresql://172.27.208.1:5432/contentsdb?reWriteBatchedInserts=true
     username: postgres
     password: postgres
   jpa:
@@ -13,6 +13,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        order_inserts: true
+        order_updates: true
+        jdbc:
+          batch_size: 1000
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
