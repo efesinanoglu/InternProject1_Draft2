@@ -18,12 +18,12 @@ import java.util.List;
 @NoArgsConstructor
 public class Content {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "content_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "content_seq")
     @SequenceGenerator(name = "content_seq", sequenceName = "content_seq", allocationSize = 50)
     private Long id;
 
-    @Lob
-    @Column(name = "file", length = 2048)
+    //@Lob
+    @Column(name = "file", length = 2048, nullable = true)
     private String file;
 
     @Column(name = "text_block", columnDefinition = "text")
