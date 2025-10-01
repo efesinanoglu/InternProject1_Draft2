@@ -1,7 +1,7 @@
 package com.example.contents.service;
 
 import com.example.contents.model.Content;
-import com.example.contents.repository.ContentRepository;
+import com.example.contents.repository.IContentRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContentChunkWriter {
 
-    private final ContentRepository repo;
+    private final IContentRepository repo;
     private final EntityManager em;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

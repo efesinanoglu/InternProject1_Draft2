@@ -3,14 +3,15 @@ package com.example.contents.repository;
 import com.example.contents.model.Content;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ContentRepository extends JpaRepository<Content, Long> {
+public interface IContentRepository extends JpaRepository<Content, Long> {
 
     List<Content> findByFileAndTextBlock(String file, String TextBlock);
 
-    boolean existsByFileIgnoreCaseAndTextBlockIgnoreCase(String file, String textBlock);
+    //boolean existsByFileIgnoreCaseAndTextBlockIgnoreCase(String file, String textBlock);
 
     @Query(value = """
     SELECT
@@ -23,6 +24,7 @@ public interface ContentRepository extends JpaRepository<Content, Long> {
     HAVING COUNT(*) > 1
     """,
             nativeQuery = true)
+    boolean existsCaseInsensitive(@Param("file") String file, @Param("textBlock") String textBlock);
     List<DupGroup> findDuplicateGroups();
 
     public interface DupGroup {

@@ -21,6 +21,11 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
+  contents:
+    files:
+      base-dir: "${USERPROFILE}/Desktop/Internproject/images"
+
+
 springdoc:
   swagger-ui:
     path: /swagger-ui/index.html

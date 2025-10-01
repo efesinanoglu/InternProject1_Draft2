@@ -4,20 +4,17 @@ import com.example.contents.dto.ContentDto;
 import com.example.contents.dto.ContentTreeDto;
 import com.example.contents.exception.NotFoundException;
 import com.example.contents.model.Content;
-import com.example.contents.repository.ContentRepository;
+import com.example.contents.repository.IContentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ContentService {
 
-    private final ContentRepository repo;
+    private final IContentRepository repo;
 
     public ContentDto getById(Long id) {
         Content c = repo.findById(id)
@@ -45,12 +42,6 @@ public class ContentService {
 
         entity.setFile(dto.getFile());
         entity.setTextBlock(dto.getTextBlock());
-
-        if (dto.getParentId() != null) {
-            Content parent = repo.findById(dto.getParentId())
-                    .orElseThrow(() -> new NotFoundException("Parent %d not found".formatted(dto.getParentId())));
-
-        }
 
         Content saved = repo.save(entity);
         return toDto(saved);

@@ -1,7 +1,7 @@
 package com.example.contents.scheduler;
 
 import com.example.contents.model.Content;
-import com.example.contents.repository.ContentRepository;
+import com.example.contents.repository.IContentRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class ContentScheduler {
     private static final Logger log = LoggerFactory.getLogger(ContentScheduler.class);
 
     @Autowired
-    ContentRepository contentRepository;
+    IContentRepository contentRepository;
 
     @PersistenceContext
     private EntityManager em;
@@ -41,11 +41,11 @@ public class ContentScheduler {
     }
 
     private int handleDuplicates() {
-        List<ContentRepository.DupGroup> groups = contentRepository.findDuplicateGroups();
+        List<IContentRepository.DupGroup> groups = contentRepository.findDuplicateGroups();
         if (groups.isEmpty()) return 0;
 
         int affected = 0;
-        for (ContentRepository.DupGroup g : groups) {
+        for (IContentRepository.DupGroup g : groups) {
             String file = g.getFile() == null ? null : g.getFile().trim();
             String text = g.getTextBlock() == null ? null : g.getTextBlock().trim();
 
@@ -82,6 +82,7 @@ public class ContentScheduler {
 
     private int handlePendingBatch() {
         List<Content> batch = contentRepository.findTop100ByProcessedFalseOrderByIdAsc();
+
         if (batch.isEmpty()) return 0;
 
         LocalDateTime now = LocalDateTime.now();

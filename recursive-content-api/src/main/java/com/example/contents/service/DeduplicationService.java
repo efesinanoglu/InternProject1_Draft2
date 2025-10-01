@@ -1,7 +1,7 @@
 package com.example.contents.service;
 
 import com.example.contents.model.Content;
-import com.example.contents.repository.ContentRepository;
+import com.example.contents.repository.IContentRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +16,9 @@ public class DeduplicationService {
 
     private static final Logger log = LoggerFactory.getLogger(DeduplicationService.class);
 
-    private final ContentRepository contentRepository;
+    private final IContentRepository contentRepository;
 
-    public DeduplicationService(ContentRepository contentRepository) {
+    public DeduplicationService(IContentRepository contentRepository) {
         this.contentRepository = contentRepository;
     }
 

@@ -2,7 +2,7 @@ package com.example.contents.service;
 
 import com.example.contents.dto.ContentDto;
 import com.example.contents.model.Content;
-import com.example.contents.repository.ContentRepository;
+import com.example.contents.repository.IContentRepository;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class ContentBulkService {
 
-    private final ContentRepository repo;
+    private final IContentRepository repo;
     private final ContentChunkWriter chunkWriter;
     private final BulkJobRegistry jobs;
 
@@ -58,7 +58,7 @@ public class ContentBulkService {
                     }
                 }
 
-                if (dedupeDb && repo.existsByFileIgnoreCaseAndTextBlockIgnoreCase(file, text)) {
+                if (dedupeDb && repo.existsCaseInsensitive(file, text)) {
                     skippedSinceLastUpdate++;
                     processedSinceLastUpdate++;
                     continue;

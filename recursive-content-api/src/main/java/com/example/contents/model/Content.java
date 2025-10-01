@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Content {
     @SequenceGenerator(name = "content_seq", sequenceName = "content_seq", allocationSize = 50)
     private Long id;
 
-    //@Lob
+    @Lob
     @Column(name = "file", length = 2048, nullable = true)
     private String file;
 
@@ -42,5 +43,7 @@ public class Content {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+
 
 }
